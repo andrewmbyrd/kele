@@ -4,9 +4,10 @@ require 'pp'
 
 class Kele
   include HTTParty
-  base_uri 'https://www.bloc.io/api/v1'
+
 
   def initialize(uname, pword)
+    @base_uri = 'https://www.bloc.io/api/v1'
     @auth = {username: uname, password: pword}
     @auth_token = self.class.post('/sessions', @auth)
   end
@@ -16,8 +17,8 @@ class Kele
     #you can do auth_token['errors'] to see if there was any problem with the self.class.post request
   end
 
-  def hi
-    puts "Hello world!"
+  def self.hi
+     "Hello World"
   end
 
 end
