@@ -1,14 +1,12 @@
-dir = File.expand_path(File.join(File.dirname(__FILE__), '..', 'lib'))
-require File.join(dir, 'httparty')
+require 'httparty'
 require 'pp'
 
 class Kele
   include HTTParty
-
+  base_uri 'https://www.bloc.io/api/v1'
 
   def initialize(uname, pword)
-    @base_uri = 'https://www.bloc.io/api/v1'
-    @auth = {username: uname, password: pword}
+    @auth = {email: uname, password: pword}
     @auth_token = self.class.post('/sessions', @auth)
   end
 
@@ -18,7 +16,7 @@ class Kele
   end
 
   def self.hi
-     "Hello World"
+     puts @auth_token
   end
 
 end

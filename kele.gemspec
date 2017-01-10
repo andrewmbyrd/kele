@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
    s.authors       = ['Andrew Byrd']
    s.email         = 'andrewmbyrd@gmail.com'
    s.files         = ['lib/kele.rb']
-   s.require_paths = ["/home/byrd/Documents/Bloc/code/kele/lib"]
+   s.require_paths = ["lib"]
    s.homepage      =
      'http://rubygems.org/gems/kele'
    s.license       = 'MIT'
