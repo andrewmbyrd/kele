@@ -59,6 +59,19 @@ class Kele
    response == " "? "Success": "There was an error posting your message"
   end
 
+  def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment)
+    get_me if @current_user_hash.nil?
+    response = self.class.post('/checkpoint_submissions',
+                                body: {"assignment_branch" => assignment_branch,
+                                        "assignment_commit_link" => assignment_commit_link,
+                                        "checkpoint_id" => checkpoint_id,
+                                        "comment" => comment,
+                                        "enrollment_id" => @current_user_hash["current_enrollment"]["id"]},
+                               headers: {"authorization" => @auth_token}).body
+
+
+  end
+
 
 
 
