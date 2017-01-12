@@ -34,6 +34,14 @@ class Kele
      @mentor_schedule = JSON.parse(response)
   end
 
+  #def get_messages(page_num = nil)
+  #  response = self.class.get('/message_threads', headers: {"authorization" => @auth_token}).body
+  #  if page_num.nil?
+  #    return JSON.parse(response)
+  # else
+
+   #end
+  #end
 
 
 end
