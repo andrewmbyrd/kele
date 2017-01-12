@@ -66,7 +66,7 @@ class Kele
                                         "assignment_commit_link" => assignment_commit_link,
                                         "checkpoint_id" => checkpoint_id,
                                         "comment" => comment,
-                                        "enrollment_id" => @current_user_hash["current_enrollment"]["id"]},
+                                        "enrollment_id" => @current_user_hash["id"]},
                                headers: {"authorization" => @auth_token}).body
 
 
