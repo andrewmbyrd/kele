@@ -1,9 +1,11 @@
 require 'httparty'
 require 'pp'
 require 'json'
+require 'roadmap.rb'
 
 class Kele
   include HTTParty
+  include Roadmap
   base_uri 'https://www.bloc.io/api/v1'
 
   attr_accessor :auth_token
@@ -31,5 +33,7 @@ class Kele
      response = self.class.get(path, headers: {"authorization" => @auth_token}).body
      @mentor_schedule = JSON.parse(response)
   end
+
+
 
 end
