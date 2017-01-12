@@ -55,6 +55,8 @@ class Kele
                                         "subject" => options[:subject],
                                         "stripped-text" => options[:body]},
                                  headers: {"authorization" => @auth_token}).body
+
+   response == " "? "Success": "There was an error posting your message"
   end
 
 
