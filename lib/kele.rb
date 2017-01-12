@@ -20,13 +20,16 @@ class Kele
   end
 
   def get_me
-    response = self.class.get('/users/me', headers: {"authorization" =>@auth_token})
+    response = self.class.get('/users/me', headers: {"authorization" => @auth_token})
     body = response.body
     @current_user_hash = JSON.parse(body)
   end
 
-  def hi
-     puts @auth_token
+  def get_mentor_availability(mentor_id)
+     string = mentor_id.to_s
+     path = '/mentors/'+ string +'/student_availability'
+     response = self.class.get(path, headers: {"authorization" => @auth_token}).body
+     @mentor_schedule = JSON.parse(response)
   end
 
 end
