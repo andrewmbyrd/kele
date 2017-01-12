@@ -27,21 +27,37 @@ class Kele
     @current_user_hash = JSON.parse(body)
   end
 
-  def get_mentor_availability(mentor_id)
-     string = mentor_id.to_s
+  def get_mentor_availability(mentor_id = nil)
+     get_me if mentor_id.nil?
+     id = mentor_id || @current_user_hash["current_enrollment"]["mentor_id"]
+     string = id.to_s
      path = '/mentors/'+ string +'/student_availability'
      response = self.class.get(path, headers: {"authorization" => @auth_token}).body
      @mentor_schedule = JSON.parse(response)
   end
 
-  #def get_messages(page_num = nil)
-  #  response = self.class.get('/message_threads', headers: {"authorization" => @auth_token}).body
-  #  if page_num.nil?
-  #    return JSON.parse(response)
-  # else
+  def get_messages(page_num = nil)
 
-   #end
-  #end
+    if page_num.nil?
+      response = self.class.get('/message_threads', headers: {"authorization" => @auth_token}).body
+      return JSON.parse(response)
+    else
+      response = self.class.get('/message_threads', body: {"page" => page_num }, headers: {"authorization" => @auth_token}).body
+      return JSON.parse(response)
+   end
+
+  end
+
+  def create_message(options = {})
+    get_me if @current_user_hash.nil?
+    response = self.class.post('/messages', body: {"sender" => @current_user_hash["email"],
+                                        "recipient_id" => options[:recipient_id] ||592292,
+                                        "subject" => options[:subject],
+                                        "stripped-text" => options[:body]},
+                                 headers: {"authorization" => @auth_token}).body
+  end
+
+
 
 
 end
