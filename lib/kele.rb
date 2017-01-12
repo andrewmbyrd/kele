@@ -5,9 +5,17 @@ class Kele
   include HTTParty
   base_uri 'https://www.bloc.io/api/v1'
 
+  attr_accessor :auth_token
+
   def initialize(uname, pword)
     @auth = {email: uname, password: pword}
-    @auth_token = self.class.post('/sessions', @auth)
+    response = self.class.post('/sessions', body: @auth)
+    unless response['auth_token'].nil?
+      @auth_token = response['auth_token']
+    else
+      raise ArgumentError, response['message']
+    end
+
   end
 
   def auth_token
