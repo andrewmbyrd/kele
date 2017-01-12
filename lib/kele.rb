@@ -1,5 +1,6 @@
 require 'httparty'
 require 'pp'
+require 'json'
 
 class Kele
   include HTTParty
@@ -18,12 +19,13 @@ class Kele
 
   end
 
-  def auth_token
-    @auth_token
-    #you can do auth_token['errors'] to see if there was any problem with the self.class.post request
+  def get_me
+    response = self.class.get('/users/me', headers: {"authorization" =>@auth_token})
+    body = response.body
+    @current_user_hash = JSON.parse(body)
   end
 
-  def self.hi
+  def hi
      puts @auth_token
   end
 
