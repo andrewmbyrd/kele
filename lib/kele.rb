@@ -72,6 +72,21 @@ class Kele
 
   end
 
+  def update_submission(checkpoint_id, id, comment=nil, options={})
+    get_me if @current_user_hash.nil?
+    path ='/checkpoint_submissions/:' + id.to_s
+    response = self.class.put(path,
+                                body: { "id" => id,
+                                        "assignment_branch" => options[:assignment_branch],
+                                        "assignment_commit_link" => options[:assignment_commit_link],
+                                        "checkpoint_id" => checkpoint_id,
+                                        "comment" => comment,
+                                        "enrollment_id" => @current_user_hash["current_enrollment"]["id"]},
+                               headers: {"authorization" => @auth_token}).body
+
+
+  end
+
 
 
 
