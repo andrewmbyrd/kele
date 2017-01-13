@@ -5,12 +5,12 @@ This gem allows you to interface with the Bloc API in order to get user info, me
 - [Initialize](#initialize)
 - [Get Current User](#get_me)
 - [Get Mentor Availability](#mentor-availability)
-- [Get Roadmap](#get_roadmap)
-- [Get Checkpoint](#get_checkpoint)
-- [Get Messages](#show-message)
+- [Get Roadmap](#get-roadmap)
+- [Get Checkpoint](#get-checkpoint)
+- [Get Messages](#get-messages)
 - [Create Messages](#create-message)
-- [Create Submissions](#create_submissionsubmit)
-- [Update Submissions](#update_submission)
+- [Create Submissions](#create-submission)
+
 
 ##Configuration
 As with all other gems, you can place this line of code in your Gemfile
@@ -76,6 +76,7 @@ The function returns an array of mentor schedule times.
 
 ##Get Roadmap
 Desired action to replicate: viewing a course road map.
+
 ![roadmap](http://imgur.com/QYkjK5v.png)
 
 Note: this function is in `roadmap.rb`, which is required in `kele.rb`.
