@@ -48,18 +48,18 @@ class Kele
 
   end
 
-  def create_message(options = {})
+  def create_message(subject, body, options = {})
     get_me if @current_user_hash.nil?
     response = self.class.post('/messages', body: {"sender" => @current_user_hash["email"],
-                                        "recipient_id" => options[:recipient_id] ||592292,
-                                        "subject" => options[:subject],
-                                        "stripped-text" => options[:body]},
+                                        "recipient_id" => options[:recipient_id] ||["current_enrollment"]["mentor_id"],
+                                        "subject" => subject,
+                                        "stripped-text" => body},
                                  headers: {"authorization" => @auth_token}).body
 
    response == " "? "Success": "There was an error posting your message"
   end
 
-  def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment)
+  def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment = nil)
     get_me if @current_user_hash.nil?
     response = self.class.post('/checkpoint_submissions',
                                 body: {"assignment_branch" => assignment_branch,
