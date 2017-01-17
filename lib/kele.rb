@@ -30,8 +30,7 @@ class Kele
   def get_mentor_availability(mentor_id = nil)
      get_me if mentor_id.nil?
      id = mentor_id || @current_user_hash["current_enrollment"]["mentor_id"]
-     string = id.to_s
-     path = '/mentors/'+ string +'/student_availability'
+     path = "/mentors/#{id}/student_availability"
      response = self.class.get(path, headers: {"authorization" => @auth_token}).body
      @mentor_schedule = JSON.parse(response)
   end
@@ -50,10 +49,12 @@ class Kele
 
   def create_message(subject, body, options = {})
     get_me if @current_user_hash.nil?
-    response = self.class.post('/messages', body: {"sender" => @current_user_hash["email"],
+    body = {"sender" => @current_user_hash["email"],
                                         "recipient_id" => options[:recipient_id] ||["current_enrollment"]["mentor_id"],
                                         "subject" => subject,
-                                        "stripped-text" => body},
+                                        "stripped-text" => body}
+    body["token"] = options[:token] if options[:token]
+    response = self.class.post('/messages', body: body,
                                  headers: {"authorization" => @auth_token}).body
 
    response == " "? "Success": "There was an error posting your message"
@@ -74,9 +75,9 @@ class Kele
 
   def update_submission(checkpoint_id, id, comment=nil, options={})
     get_me if @current_user_hash.nil?
-    path ='/checkpoint_submissions/:' + id.to_s
+    path ='/checkpoint_submissions/' + id.to_s
     response = self.class.put(path,
-                                body: { "id" => id,
+                                body: { 
                                         "assignment_branch" => options[:assignment_branch],
                                         "assignment_commit_link" => options[:assignment_commit_link],
                                         "checkpoint_id" => checkpoint_id,
