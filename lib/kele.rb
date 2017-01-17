@@ -73,11 +73,12 @@ class Kele
 
   end
 
-  def update_submission(checkpoint_id, comment=nil, options={})
+  def update_submission(checkpoint_id, id, comment=nil, options={})
     get_me if @current_user_hash.nil?
-    path ='/checkpoint_submissions/' + id.to_s
+    path ="/checkpoint_submissions/#{id}"
     response = self.class.put(path,
                                 body: {
+                                        
                                         "assignment_branch" => options[:assignment_branch],
                                         "assignment_commit_link" => options[:assignment_commit_link],
                                         "checkpoint_id" => checkpoint_id,
